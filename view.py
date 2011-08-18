@@ -1,3 +1,18 @@
+'''
+sunrise_helper
+A script for making it easier to post pictures to Wordpress.com
+Blaine Booher
+http://aultparksunrise.com
+http://github.com/booherbg/sunrise_helper
+Licensed under the GPLv2
+
+
+See http://github.com/booherbg/sunrise_helper for more info on this project
+
+usage:
+python view.py Day40/*.jpg
+'''
+
 from __future__ import division
 import pygtk; pygtk.require('2.0')
 import gtk
@@ -10,7 +25,22 @@ import datetime
 if len(sys.argv) > 1:
     files = sys.argv[1:]
 else:
-    files = glob.glob("*.jpg")
+    print "usage: %s <files>" % sys.argv[0]
+    print ""
+    print "For example, let's say you have a folder full of pictures."
+    print "This folder is located at /sunrise/Day40/"
+    print "$ python %s /sunrise/Day40/*.jpg" % sys.argv[0]
+    print " ^--- that would run the script on all the .jpg files located"
+    print "in the Day40/ folder, process them and prompt you for a name,"
+    print "and dump the new file (via image-magick) into Day40/ while "
+    print "leaving the original files intact. Try it out."
+    print ""
+    print "Requires: "
+    print " * python"
+    print " * image-magick"
+    print " * gtk+-2.0"
+    print " * python-gtk (pygtk)"
+    sys.exit(0)
     
 for f in files:
     sys.stderr.write("%s\n" % f)

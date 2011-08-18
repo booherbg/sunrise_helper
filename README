@@ -2,6 +2,11 @@ Project Ault Park Sunrise helper scripts
 Blaine Booher
 http://aultparksunrise.com
 
+This script helps me post lots of daily pictures to my free wordpress.com
+blog (Ault Park Sunrise). It processes the pictures *and* prints out html
+so that I don't have to spend the torturous amount of time individually
+adding each image to my post, one at a time.
+
 Consider this script at a pre-alpha version. No warranty is expressed,
 and you'll likely have to dig into the files to edit them to your liking.
 
@@ -51,7 +56,11 @@ to name each picture, and the rest of the time is spent writing the article.
 
 More Detail
 -----------
-Requires: gtk+ and image-magick
+Requires: gtk+, python-gtk, and image-magick (via system call with os.popen)
+
+I use this on my ubuntu macbook (linux) but it would probably work with 
+other operating systems. You'd just have to have gtk+ and the python
+bindings, as well as image magick installed.
 
 To run, simply dump your pictures into a folder. Then do:
    $ python view.py Day50/*.jpg

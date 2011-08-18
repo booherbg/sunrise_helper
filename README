@@ -8,6 +8,11 @@ and you'll likely have to dig into the files to edit them to your liking.
 Introduction
 ------------
 
+I started a photo / history / local culture / health blog with the 
+intent of seeing and documenting 40 sunrises in the hills of Eastern
+Cincinnati. To help me with the processing of the pictures, I needed
+a tool. This script is that tool.
+
 I'll add more to this as I get the git repo up and running.  For now, 
 know that this script is limited but it fits my needs quite well. You'll
 have to open view.py (main file loader) and annotate.py (gtk window) to 

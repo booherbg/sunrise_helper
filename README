@@ -1,0 +1,78 @@
+Project Ault Park Sunrise helper scripts
+Blaine Booher
+http://aultparksunrise.com
+
+Consider this script at a pre-alpha version. No warranty is expressed,
+and you'll likely have to dig into the files to edit them to your liking.
+
+Introduction
+------------
+
+I'll add more to this as I get the git repo up and running.  For now, 
+know that this script is limited but it fits my needs quite well. You'll
+have to open view.py (main file loader) and annotate.py (gtk window) to 
+make sure that the settings work for you if you want to use this script.
+
+My Workflow
+-----------
+My workflow is simple and with this script I am able to take lots of 
+pictures each day of the sunrise and surrounding Cincinnati urban landscape
+without taking much time. Before I wrote this script i was averaging about
+90 seconds, on average, per image. That meant 30 images took way too long 
+to process and there was an incentive for me to "keep it short".
+
+With this script the amount of time depends only on how much I write for 
+each picture, not how long it takes to process each one. I can focus on
+the writing, not the cruft. About 5 seconds per image of processing, on average.
+
+1) Wake up at 6am and bike to Ault Park. Take pictures, as many as I want
+2) Plug camera into computer, dump pictures to my /sunrise/queued folder
+3) Back up all pictures to /backup/pictures
+4) Hand pick which pictures I want to use. Put them in /sunrise/Day40/
+5) run "python view.py /sunrise/Day40/*.jpg"
+6) Select names for each picture
+7) Copy the html output into the html box on wordpress
+8) Click "Upload Images" and select all of the renamed images
+9) Write up the daily post using the html editor
+10) Publish the thing
+
+For a quick morning with 3 pictures and a single paragraph, steps 3-10
+do not have to take more than 10 minutes. On longer days where I take up 
+to 100 pictures of historical buildings etc. it takes only a bit of time
+to name each picture, and the rest of the time is spent writing the article.
+
+
+More Detail
+-----------
+Requires: gtk+ and image-magick
+
+To run, simply dump your pictures into a folder. Then do:
+   $ python view.py Day50/*.jpg
+
+You will see a window pop up with a preview of each picture along with 
+an input that prompts you to name the picture. When you put the name
+into the box and hit "enter", several things happen:
+1) The filename is generated based on the date, picture number, and the
+   name you put into the box
+2) ImageMagic is called to do several things:
+   i) Add "Copyright Ault Park Sunrise 2011" in small text
+  ii) Resize the image to web-appropriate dimensions. This is a smart
+      resize that maintains aspect ratio.
+ iii) Rotate the image if it was taken vertically
+  iv) Name the image appropriately from #1
+   v) Output the new file without deleting the original into the same 
+      folder that the image was found in
+3) Once the file is created, a wordpress-compatible html snippet is 
+   dumped to stdout. The "url" in the image src is "estimated" based
+   on the date format that wordpress uses. Like this:
+       http://aultparksunrise.files.wordpress.com/2011/06/153_04_lunken_airfield_sunrise_4nn.jpg
+   The snippet looks like this: <p><a href=><img src=/></a>Comment</p>
+   The image is shrunken to fit on a standard widescreen resolution,
+   and uses two wordpress classes - one to keep it large, and one to
+   center the image on the page. The hyperlink links the image to 
+   the full resolution image.
+
+I have considered a future feature that includes dumping each file name
+to a database so that it would be incredibly easy to dump an automatic
+"best pictures" post, but for now it simply preps the images for the web.
+

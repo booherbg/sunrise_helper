@@ -1,5 +1,16 @@
 # -*- coding: iso-8859-1 -*-
 #^-- for the copyright symbol (c)
+'''
+Try not to run this directly...
+
+run view.py instead
+
+Blaine Booher
+Ault Park Sunrise
+http://aultparksunrise.com
+http://github.com/booherbg/sunrise_helper
+
+'''
 from __future__ import division #for float division, not integer division
 import os
 import glob

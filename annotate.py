@@ -22,10 +22,11 @@ if len(sys.argv) > 1:
     files = sys.argv[1:]
 else:
     files = glob.glob("*.jpg")
-a_label='  © aultparksunrise.com 2011'
+a_label='  © aultparksunrise.com %s' % (datetime.datetime.now().year)
+#a_label=''
 resize = 1280 #width to resize to
-fontsize_wide = 29
-fontsize_normal = 36
+fontsize_wide = 29 #font size for widescreen pictures
+fontsize_normal = 20 #font size for normal 4:3 pictures 
 
 class UnknownAspectRatio(Exception): pass
 
@@ -59,12 +60,14 @@ def process(f, output):
     if "_4nn." in f:
         return False
     skip_annotate = False
+    
     # What could go wrong?
     width, height = map(float, os.popen("identify '%s'" % f).read().split()[2].split("x"))
     aspect = (width / height)
     #sys.stderr.write("%s\n" % aspect)
     #import pdb;pdb.set_trace()
     gravity = "SouthEast"
+    print aspect
     if abs(aspect - 1.78) <= 0.1:
         # Widescreen Mode
         if width <= 2600:
@@ -75,6 +78,12 @@ def process(f, output):
     elif abs(aspect - 1.33333) <= 0.1:
         # Normal Mode
         fontsize = fontsize_normal
+    elif abs(aspect - 0.66) <= 0.05:
+        # Widescreen Mode sideways
+        if width <= 1500:
+            fontsize = fontsize_wide - 8
+        else:
+            fontsize = fontsize_wide + 15
     elif abs(aspect - 0.75) <= 0.1:
         # Normal Mode sideways
         fontsize = fontsize_normal - 2
@@ -84,10 +93,17 @@ def process(f, output):
             fontsize = fontsize_wide - 8
         else:
             fontsize = fontsize_wide
+    elif abs(aspect - 1.65818) <= 0.1:
+        # Special Sunrise/Bike Eden Park Gradient
+        fontsize = fontsize_wide - 6
     elif abs(aspect - 1.16117) <= 0.1:
         # Web high dev image
         # special case for shorpy.com - no (c) ault park
         fontsize = fontsize_normal - 2
+        
+    elif abs(aspect - 1.50000) <= 0.1:
+        # Tara's photos, also from Canon SLR
+        fontsize = fontsize_normal + 20
     else:
         # Unknown Aspect Ratio
         sys.stderr.write("#"*80)
